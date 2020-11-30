@@ -1,0 +1,255 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeucas}[2020/07/13]
+
+\mode<presentation>
+
+\DeclareOptionBeamer{logo}{\def\ucasbeamer@option@logo{#1}}
+\ExecuteOptionsBeamer{logo=UCAS}
+
+%\DeclareOptionBeamer{sublogo}{\def\ucasbeamer@option@sublogo{#1}}
+%\ExecuteOptionsBeamer{sublogo=auto}
+
+\RequirePackage{booktabs}
+
+% 无标号的脚注
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% 设置字体
+\usefonttheme{professionalfonts}% 数学公式字体
+
+\ProcessOptionsBeamer%
+
+% 定义主形象标志 (logo) 和 子形象标识 (sublogo) 的文件夹路径
+\def\ucasbeamer@pathname@logo{logo/}
+%\def\ucasbeamer@pathname@sublogo{sublogo/}
+
+% 定义主形象标志的文件名
+\def\ucasbeamerfilenamelogo{%
+  \ucasbeamer@pathname@logo \ucasbeamer@option@logo%
+}
+
+% 定义子形象标志的文件名
+%\def\ucasbeamerfilenamesublogo{%
+%  \ucasbeamer@pathname@sublogo \ucasbeamer@option@sublogo%
+%}
+
+% --------------------------------- 预设长度 --------------------------------- %
+% 定义边界间隔距离
+\newlength{\ucasbeamermargin}
+\setlength{\ucasbeamermargin}{14pt}
+
+% 定义页脚占据的高度
+\newlength{\ucasbeamerfootlineheight}
+\setlength{\ucasbeamerfootlineheight}{8pt}
+% 定义页脚与底边界的距离
+\newlength{\ucasbeamerfootlinebottompadding}
+\setlength{\ucasbeamerfootlinebottompadding}{6pt}
+
+% 定义主形象标志的最大宽度
+\newlength{\ucasbeamerlogomaxwidth}
+\setlength{\ucasbeamerlogomaxwidth}{36pt}
+% 定义子形象标识的最大高度
+%\newlength{\ucasbeamersublogomaxheight}
+%\setlength{\ucasbeamersublogomaxheight}{36pt}
+
+% 定义展示页面标题与上边界的间隔
+\newlength{\ucasbeamertoppadding}
+\setlength{\ucasbeamertoppadding}{12pt}
+
+% 定义扉页 (title page) 左上角标志的高度
+\newlength{\ucasbeamerlogoheighttitlepage}
+\setlength{\ucasbeamerlogoheighttitlepage}{36pt}
+
+% 定义扉页之后 (Not title page) 左上角标志的高度
+\newlength{\ucasbeamerlogoheight}
+\setlength{\ucasbeamerlogoheight}{24pt}
+
+% --------------------------------- 预设颜色 --------------------------------- %
+%\definecolor{ucasbeamer@base}{RGB}{0, 64, 152} % 底色：孔雀蓝
+\definecolor{ucasbeamer@base}{rgb}{0.55, 0, 0.55} % 修改适应南理工的底色  紫色
+\definecolor{ucasbeamer@graybase}{RGB}{240, 240, 240}
+\definecolor{ucasbeamer@gray}{RGB}{130, 130, 130}
+\definecolor{ucasbeamer@orange}{RGB}{240, 140, 0}
+\definecolor{ucasbeamer@red}{RGB}{210, 26, 66}
+\definecolor{ucasbeamer@green}{RGB}{0, 127, 0}
+
+% -------------------------------- 自定义命令 -------------------------------- %
+\providecommand{\red}[1]{{\color{ucasbeamer@red}{#1}}}
+\providecommand{\green}[1]{{\color{ucasbeamer@green}{#1}}}
+
+% -------------------------------- 自定义设置 -------------------------------- %
+% 使用页眉（章节题目）
+\useoutertheme{infolines}
+% 设置 \pause 之后的内容从半透明到完全显示的动态变化
+\setbeamercovered{dynamic}
+% 设置页码边距
+\setbeamersize{%
+  text margin left=\ucasbeamermargin,
+  text margin right=\ucasbeamermargin}
+
+% 设置展示页面的标题与副标题
+\setbeamertemplate{frametitle}{%
+  \vspace{\ucasbeamertoppadding}
+  \vtop{{%
+    \usebeamerfont{frametitle}{\insertframetitle}%
+    \ifx\insertframesubtitle\empty\else\\
+      \usebeamerfont{framesubtitle}{\insertframesubtitle}
+    \fi}
+    \vfill}}
+
+% 取消底部的导航栏
+\setbeamertemplate{navigation symbols}{}
+
+% 设置背景
+\setbeamertemplate{background canvas}{%
+  \ifnum\value{page}=1
+    \let\ucasbeamertemplength\ucasbeamerlogoheighttitlepage%
+  \else
+    \let\ucasbeamertemplength\ucasbeamerlogoheight%
+  \fi
+  \leavevmode\hskip\ucasbeamermargin%
+  \includegraphics[height=\ucasbeamertemplength]{\ucasbeamerfilenamelogo}
+}
+
+% 设置页脚的信息（姓名、题目、日期、页码）
+\setbeamertemplate{footline}{%
+  \hskip\ucasbeamermargin%
+  \usebeamercolor[fg]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor%
+    \lower2pt\hbox{\Large$\cdot$}
+  \usebeamercolor[fg]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle%
+    \lower2pt\hbox{\Large$\cdot$}
+  \usebeamercolor[fg]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate%
+  \hfill
+  \insertframenumber{} / \inserttotalframenumber%
+  \hskip\ucasbeamermargin%
+  \vrule width 0pt height \ucasbeamerfootlineheight%
+         depth \ucasbeamerfootlinebottompadding}
+
+% 设置扉页
+\setbeamertemplate{title page}{%
+  \vfill
+  \begin{center}
+    {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}%
+    \medskip
+
+    {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}%
+    \vfill
+
+    {\usebeamerfont{author} \insertauthor}%
+    \medskip
+    \vskip 0.4cm
+
+    {\usebeamerfont{institute} \insertinstitute}%
+    \medskip
+
+%    \includegraphics%
+%    [
+%      width=.6\textwidth,
+%      height=.15\textheight,
+%      keepaspectratio
+%    ]{\ucasbeamerfilenamesublogo}%
+
+%    \vfill
+	\vskip 1cm
+    {\usebeamerfont{date}\centering \insertdate}%
+  \end{center}
+}
+
+% 设置结构 (structure) 的字体及前景颜色
+\setbeamerfont{structure}{series=\bfseries}
+\setbeamercolor{structure}{fg=ucasbeamer@gray}
+
+% 设置警示 (alerted) 的字体及前景颜色
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=ucasbeamer@orange}
+
+% 设置题目 (title) 的字体、大小及颜色
+\setbeamerfont{title}{size=\Large, series=\bfseries}
+\setbeamercolor{title}{fg=ucasbeamer@base}
+\setbeamerfont{title in head/foot}{size=\tiny, series=\bfseries}
+\setbeamercolor{title in head/foot}{parent=structure}
+
+% 设置作者的字体及大小
+\setbeamerfont{author}{series=\bfseries, size=\small}
+\setbeamerfont{author in head/foot}{size=\tiny, series=\bfseries}
+\setbeamercolor{author in head/foot}{parent=structure}
+
+% 设置日期的字体大小
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{date in head/foot}{size=\tiny, series=\bfseries}
+\setbeamercolor{date in head/foot}{parent=structure}
+
+% 设置项目符号 (item) 为方形 (square)
+\setbeamertemplate{itemize items}[square]
+% 设置子项目符号 (subitem) 为三角形 (triangle)
+\setbeamertemplate{itemize subitem}[triangle]
+% 设置子项目的子项目符号 (subsubitem) 为圆形 (circle)
+\setbeamertemplate{itemize subsubitem}[circle]
+
+% 设置 脚注 (footnote) 的字体大小、脚注的标号属性
+\setbeamerfont{footnote}{size=\footnotesize}
+\setbeamercolor{footnote mark}{parent=structure}
+
+% 设置幻灯片标题、副标题、章节、子章节的字体及大小
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamercolor{frametitle}{parent=title}
+
+\setbeamerfont{framesubtitle}{size=\large, series=\bfseries}
+\setbeamercolor{framesubtitle}{parent=subtitle}
+
+\setbeamerfont{section in head/foot}{parent=structure}
+\setbeamercolor{section in head/foot}{parent=structure}
+
+\setbeamerfont{subsection in head/foot}{parent=normal text}
+\setbeamercolor{subsection in head/foot}{parent=structure}
+
+% 设置定理区块显示序号
+\setbeamertemplate{theorems}[numbered]
+
+% 设置证明区块
+\addtobeamertemplate{proof begin}{%
+  \setbeamercolor{block title}{fg=white, bg=ucasbeamer@red!80!white}%
+  \setbeamercolor{block body}{fg=black, bg=ucasbeamer@red!20!white}%
+}{}
+
+% 设置展示块是否有阴影显示
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+% 设置展示块，一般块、示例块、警醒块 (block title) 的标题颜色，前景色与背景色
+\setbeamercolor{block title}{fg=white, bg=ucasbeamer@base}
+\setbeamercolor{block title example}{%
+  use=alerted text, fg=white, bg=ucasbeamer@gray}
+\setbeamercolor{block title alerted}{%
+  use=alerted text, fg=white, bg=ucasbeamer@orange}
+
+% 设置展示块内容的文本颜色、背景颜色
+\setbeamercolor{block body}{%
+  parent=normal text, use=block title,
+  bg=block title.bg!10!bg}
+\setbeamercolor{block body example}{%
+  parent=normal text, bg=ucasbeamer@graybase}
+\setbeamercolor{block body alerted}{%
+  parent=normal text, use=block title alerted,
+  bg=block title alerted.bg!10!bg}
+
+% 设置参考文献显示书本、网络、文章的标志
+\setbeamertemplate{bibliography item}{%
+  \ifboolexpr{test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+    or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+    or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+    {\setbeamertemplate{bibliography item}[book]}
+    {\ifentrytype{online}
+      {\setbeamertemplate{bibliography item}[online]}
+      {\setbeamertemplate{bibliography item}[article]}}%
+    \usebeamertemplate{bibliography item}}
+
+\mode<all>
+\endinput

@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{1. PX4简介}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{开源飞控软件简介}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{PX4系统架构}{6}{0}{1}
+\beamer@sectionintoc {2}{2. 主要内容}{7}{0}{2}
+\beamer@sectionintoc {3}{3. 总结}{9}{0}{3}
