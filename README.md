@@ -2,14 +2,16 @@
 
 欢迎南理工学子下载使用！
 
-![](./njust-beamer.jpg)
-
+![](./image/njust-beamer.jpg)
+![](./image/block.jpg)
+![](./image/equation)
 
 ## 简介
-- 本模板模仿中国科学院大学的一个beamer主题进行定制，主要修改地方有
+- [本例子的demo展示](./NJUST-slides.pdf)
+- 本模板模仿中国科学院大学的一个beamer主题进行定制，主要修改地方有：
     - 将校徽替换为南理工的校徽
     - 将章节的title颜色修改为南理工主题颜色【紫色】
-    - 去掉了子logo，也就是学院的院徽，同时对封面页的布局风格进行了调整，
+    - 去掉封面页子logo，也就是学院的院徽，同时对封面页的布局风格进行了调整
 
 ## 一个简短的LaTeX介绍
 - [一个非常好的LaTeX入门材料](https://github.com/luong-komorebi/Begin-Latex-in-minutes)
